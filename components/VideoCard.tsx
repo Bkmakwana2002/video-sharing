@@ -65,12 +65,12 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             <div className='lg:ml-20 gap-4 flex relative'>
                 <div className='rounded-3xl' onMouseEnter={()=>setIsHover(true)}
                   onMouseLeave={()=>setIsHover(false)}>
-                    <Link href='/' >
+                    <Link href={`/detail/${post._id}`} >
                         <video
                             loop
                             ref={videoRef}
                             src={post.video.asset.url}
-                            className='lg:w-[600px] h-[300px] md:h-[400px] lg:h-[590px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
+                            className='lg:w-[700px] h-[300px] md:h-[400px] lg:h-[590px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
                         ></video>
                     </Link>
                     {
