@@ -112,9 +112,15 @@ const Detail = ({ postDetails }: Iprops) => {
           </div>
 
           <p className='px-10 text-lg text-gray-600'>
-            {post.caption}
+            {post.caption}s
           </p>
-
+   
+          <div className='mt-10 px-10'>
+            <div>
+              {}
+            </div>
+          </div>
+   
         </div>
       </div>
 
