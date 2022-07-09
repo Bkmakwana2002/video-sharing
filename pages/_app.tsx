@@ -15,7 +15,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   if (isSSR) return null
 
   return <GoogleOAuthProvider clientId="128885864306-uvdvfkabqr9p7f7gp0d9anrjcbakds3i.apps.googleusercontent.com">
-    <Navbar />
+   <div className='xl:w-[1200px] m-auto h-[100vh] overflow-hiddenn'>
+   <Navbar />
     <div className="flex gap-6 md:gap-20">
       <div className='h-[92vh] overflow-hidden xl:overflow-auto'>
         <Sidebar />
@@ -24,6 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Component {...pageProps} />
       </div>
     </div>
+   </div>
   </GoogleOAuthProvider>
 }
 
