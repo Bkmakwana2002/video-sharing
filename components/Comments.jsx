@@ -1,0 +1,16 @@
+import React, { Dispatch, SetStateAction } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { GoVerified } from 'react-icons/go';
+
+import useAuthStore from '../store/authStore';
+import NoResults from './NoResults';
+import { IUser } from '../types';
+
+const Comments = () => {
+  return (
+    <div>Comments</div>
+  )
+}
+
+export default Comments

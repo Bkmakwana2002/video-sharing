@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { GoVerified } from 'react-icons/go';
-import Image from 'next/image';
-import Link from 'next/link';
-import { MdOutlineCancel } from 'react-icons/md';
-import { BsFillPlayFill } from 'react-icons/bs';
-import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
+import React, { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { GoVerified } from 'react-icons/go'
+import Image from 'next/image'
+import Link from 'next/link'
+import { MdOutlineCancel } from 'react-icons/md'
+import { BsFillPlayFill } from 'react-icons/bs'
+import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi'
 import axios from 'axios'
-import { Video } from '../../types';
+import { Video } from '../../types'
+import useAuthStore from '../../store/authStore'
+import LikeButton from '../../components/LikeButton'
+import Comments from '../../components/Comments'
 
 interface Iprops {
   postDetails: Video
@@ -20,6 +23,7 @@ const Detail = ({ postDetails }: Iprops) => {
   const [post, setPost] = useState(postDetails)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isVideoMuted, setIsVideoMuted] = useState(false)
+  const { userProfile }:any = useAuthStore()
 
   if (!post) {
     return null
@@ -33,6 +37,17 @@ const Detail = ({ postDetails }: Iprops) => {
     else {
       videRef?.current?.play()
       setIsPlaying(true)
+    }
+  }
+
+  const handleLike = async (like: boolean) => {
+    if (userProfile) {
+      const res = await axios.put(`http://localhost:3000/api/like`, {
+        userId: userProfile._id,
+        postId: post._id,
+        like
+      });
+      setPost({ ...post, likes: res.data.likes });
     }
   }
 
@@ -114,13 +129,18 @@ const Detail = ({ postDetails }: Iprops) => {
           <p className='px-10 text-lg text-gray-600'>
             {post.caption}s
           </p>
-   
+
           <div className='mt-10 px-10'>
-            <div>
-              {}
-            </div>
+          {userProfile && <LikeButton
+                  likes={post.likes}
+                  flex='flex'
+                  handleLike={() => handleLike(true)}
+                  handleDislike={() => handleLike(false)}
+                />}
           </div>
-   
+
+          <Comments />
+
         </div>
       </div>
 
