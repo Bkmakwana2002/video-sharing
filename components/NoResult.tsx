@@ -1,5 +1,7 @@
 import React from 'react'
 import { NextPage } from 'next'
+import { MdOutlineVideocamOff } from 'react-icons/md'
+import { BiCommentX } from 'react-icons/bi'
 
 interface IProps {
     text: string
@@ -7,7 +9,14 @@ interface IProps {
 
 const NoResult: NextPage<IProps> = ({ text }) => {
     return (
-        <div>NoResult</div>
+        <div className='flex flex-col justify-center items-center h-full w-full'>
+            <p className='text-8xl'>
+                {text === 'No comments here yet' ? <BiCommentX /> : <MdOutlineVideocamOff />}
+            </p>
+            <p className='text-2xl text-center'>
+                {text}
+            </p>
+        </div>
     )
 }
 

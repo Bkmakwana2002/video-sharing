@@ -24,6 +24,8 @@ const Detail = ({ postDetails }: Iprops) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isVideoMuted, setIsVideoMuted] = useState(false)
   const { userProfile }:any = useAuthStore()
+  const [comment, setComment] = useState('')
+  const [isPostingComment, setIsPostingComment] = useState(false)
 
   if (!post) {
     return null
@@ -49,6 +51,23 @@ const Detail = ({ postDetails }: Iprops) => {
       });
       setPost({ ...post, likes: res.data.likes });
     }
+  }
+
+  const addComment = async(e)=>{
+      e.preventDefault()
+      if(userProfile && comment)
+      {
+        setIsPostingComment(true)
+        const {data} = await axios.put(`http://localhost:3000/api/post/${post._id}`,
+         {
+          userId : userProfile._id,
+          comment
+         })
+
+         setPost({ ...post,comments:data.comments })
+         setComment('')
+         setIsPostingComment(false)
+      }
   }
 
   useEffect(() => {
@@ -139,7 +158,10 @@ const Detail = ({ postDetails }: Iprops) => {
                 />}
           </div>
 
-          <Comments />
+          <Comments comment={comment} setComment={setComment} addComment = {addComment} 
+                    isPostingComment = {isPostingComment} comments = {post.comments}
+            
+          />
 
         </div>
       </div>
