@@ -19,6 +19,8 @@ interface Iprops {
 
 const Detail = ({ postDetails }: Iprops) => {
 
+  const router = useRouter()
+
   const videRef = useRef<HTMLVideoElement>(null)
   const [post, setPost] = useState(postDetails)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -73,9 +75,9 @@ const Detail = ({ postDetails }: Iprops) => {
     if (post && videRef?.current) {
       videRef.current.muted = isVideoMuted
     }
+    return ;
   }, [post, isVideoMuted])
 
-  const router = useRouter()
 
   return (
     <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
