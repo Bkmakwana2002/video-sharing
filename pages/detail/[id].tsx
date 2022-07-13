@@ -23,7 +23,7 @@ const Detail = ({ postDetails }: Iprops) => {
   const [post, setPost] = useState(postDetails)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isVideoMuted, setIsVideoMuted] = useState(false)
-  const { userProfile }:any = useAuthStore()
+  const { userProfile }: any = useAuthStore()
   const [comment, setComment] = useState('')
   const [isPostingComment, setIsPostingComment] = useState(false)
 
@@ -53,21 +53,20 @@ const Detail = ({ postDetails }: Iprops) => {
     }
   }
 
-  const addComment = async(e)=>{
-      e.preventDefault()
-      if(userProfile && comment)
-      {
-        setIsPostingComment(true)
-        const {data} = await axios.put(`http://localhost:3000/api/post/${post._id}`,
-         {
-          userId : userProfile._id,
+  const addComment = async (e) => {
+    e.preventDefault()
+    if (userProfile && comment) {
+      setIsPostingComment(true)
+      const { data } = await axios.put(`http://localhost:3000/api/post/${post._id}`,
+        {
+          userId: userProfile._id,
           comment
-         })
+        })
 
-         setPost({ ...post,comments:data.comments })
-         setComment('')
-         setIsPostingComment(false)
-      }
+      setPost({ ...post, comments: data.comments })
+      setComment('')
+      setIsPostingComment(false)
+    }
   }
 
   useEffect(() => {
@@ -150,17 +149,17 @@ const Detail = ({ postDetails }: Iprops) => {
           </p>
 
           <div className='mt-10 px-10'>
-          {userProfile && <LikeButton
-                  likes={post.likes}
-                  flex='flex'
-                  handleLike={() => handleLike(true)}
-                  handleDislike={() => handleLike(false)}
-                />}
+            {userProfile && <LikeButton
+              likes={post.likes}
+              flex='flex'
+              handleLike={() => handleLike(true)}
+              handleDislike={() => handleLike(false)}
+            />}
           </div>
 
-          <Comments comment={comment} setComment={setComment} addComment = {addComment} 
-                    isPostingComment = {isPostingComment} comments = {post.comments}
-            
+          <Comments comment={comment} setComment={setComment} addComment={addComment}
+            isPostingComment={isPostingComment} comments={post.comments}
+
           />
 
         </div>
